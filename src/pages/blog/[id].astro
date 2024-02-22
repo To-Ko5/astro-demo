@@ -1,13 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import { buttonVariants } from '@/components/ui/button'
 
 export function getStaticPaths() {
   return [{ params: { id: 1 } }, { params: { id: 2 } }, { params: { id: 3 } }]
 }
 
 const { id } = Astro.params
+const nextId = Number(id) + 1
 ---
 
 <Layout title={String(id)}>
   <main class="container">{id}</main>
+
+  <div>
+    <a class={buttonVariants()} href={`${nextId}`}>Next</a>
+  </div>
 </Layout>
