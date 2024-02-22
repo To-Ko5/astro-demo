@@ -1,4 +1,6 @@
 ---
+import Layout from '../../layouts/Layout.astro'
+
 export function getStaticPaths() {
   return [{ params: { id: 1 } }, { params: { id: 2 } }, { params: { id: 3 } }]
 }
@@ -6,4 +8,6 @@ export function getStaticPaths() {
 const { id } = Astro.params
 ---
 
-<div>{id}</div>
+<Layout title={String(id)}>
+  <main class="container">{id}</main>
+</Layout>
