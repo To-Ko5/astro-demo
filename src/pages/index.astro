@@ -3,10 +3,11 @@ import Layout from '../layouts/Layout.astro'
 import Card from '../components/Card.astro'
 import '@/styles/globals.css'
 import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 ---
 
 <Layout title="Welcome to Astro.">
-  <main>
-    <Button>ボタン</Button>
+  <main class="container space-y-4">
+    <a class={buttonVariants()} href="/about">about</a>
   </main>
 </Layout>
