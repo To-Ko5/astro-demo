@@ -1,20 +1,29 @@
 import { AdjustmentFilter } from '@pixi/filter-adjustment'
-import { Container, Sprite, Stage, withFilters } from '@pixi/react'
+import { Container, Sprite, Stage, useTick, withFilters } from '@pixi/react'
 import { BlurFilter, NoiseFilter } from 'pixi.js'
-import { useMemo } from 'react'
+import { OldFilmFilter } from 'pixi-filters'
+import { useMemo, useState } from 'react'
 
 const Filters = withFilters(Container, {
   blur: BlurFilter,
   noise: NoiseFilter,
+  old: OldFilmFilter,
   adjust: AdjustmentFilter
 })
 
 const demo = () => {
-  return (
-    <Stage width={500} height={500}>
+  const [angle, setAngle] = useState(0)
+
+  const Demo = () => {
+    useTick((delta) => {
+      setAngle(Math.random())
+    })
+
+    return (
       <Filters
         blur={{ blur: 0.1 }}
-        noise={{ noise: 0.5 }}
+        noise={{ noise: angle }}
+        old={{ enabled: true, sepia: 0.1, noiseSize: angle }}
         adjust={{ gamma: 1, brightness: 1 }}
       >
         <Sprite
@@ -39,6 +48,12 @@ const demo = () => {
           anchor={{ x: 1, y: 1 }}
         />
       </Filters>
+    )
+  }
+
+  return (
+    <Stage width={500} height={500}>
+      <Demo />
     </Stage>
   )
 }
